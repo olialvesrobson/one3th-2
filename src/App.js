@@ -1,23 +1,23 @@
-import logo from './logo.svg';
+import React from 'react'
 import './App.css';
+import EditTenantPage from './resources/tenant/pages/edit';
+// import SinginPage from './resources/signin/pages';
+// import SingupPage from './resources/signup/pages';
+
+
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          My Demo Page
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        
       </header>
+      <div>
+        <EditTenantPage />
+      </div>
     </div>
   );
 }
