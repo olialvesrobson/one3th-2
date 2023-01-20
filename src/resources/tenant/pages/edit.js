@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import ButtonSubmit from '../../components/button';
-import {InputWithLabelComponent} from '../../components/inputField';
-import fetchTenantId, { edit } from '../actions';
+import InputComponent from '../../components/inputField';
+import Button from '@material-ui/core/Button';
+// import { onAuthStateChanged } from "firebase/auth";
+import Box from '@material-ui/core/Box';
+import AppContainer from '../../components/container';
 
-const EditTenantPage = (props) => {
+const EditTenantPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [numberOfEmployees, setNumberOfEmployees] = useState('');
@@ -23,21 +25,75 @@ const EditTenantPage = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log({name, email, numberOfEmployees, location})
-    // edit({name, email, numberOfEmployees, location});
+    const data = new FormData(event.currentTarget);
     
+    setName(data.get('name'));
+    setEmail(data.get('email'));
+    setNumberOfEmployees(data.get('numberOfEmployees'));
+    setLocation(data.get('location'));
+    // edit({name, email, numberOfEmployees, location});
+    try {
+      console.log({name, email, numberOfEmployees, location});
+    } catch (err) {
+      setError(err);
+      console.log(error);
+    }
   };
 
+  const renderContent = () => {
+    return (
+      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '100%' }}>
+        
+        <InputComponent 
+          inputName='Name' 
+          inputType='text' 
+          labelText='Name:' 
+          inputId='name'
+          fullWidth='true'
+          inputAction={(event) => setName(event.target.value)} 
+        />
+        <InputComponent 
+          inputName='Email' 
+          inputType='email' 
+          labelText='Email:' 
+          inputId='email'
+          fullWidth='true'
+          inputAction={(event) => setEmail(event.target.value)} 
+        />
+        <InputComponent 
+          inputName='NumberOfEmployees' 
+          inputType='text' 
+          labelText='Number of Employees:' 
+          inputId='numberOfEmployees'
+          fullWidth='true'
+          inputAction={(event) => setNumberOfEmployees(event.target.value)} 
+        />
+        <InputComponent 
+          inputName='location' 
+          inputType='text' 
+          labelText='Location:' 
+          inputId='location'
+          fullWidth='true'
+          inputAction={(event) => setLocation(event.target.value)} 
+        />
+
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          Save
+        </Button>
+        
+      </Box>
+
+    );
+  }
   return (
-    <form onSubmit={handleSubmit}>
-      <InputWithLabelComponent inputText={name} inputName='name'  inputType='text' labelText='Name' inputAction={(event) => setName(event.target.value)} />
-      <InputWithLabelComponent inputText={email} inputName='email' inputType='email' labelText='Email' inputAction={(event) => setEmail(event.target.value)} />
-      <InputWithLabelComponent inputText={numberOfEmployees} inputName='numberOfEmployees' inputType='number' labelText='Number of Employees' inputAction={(event) => setNumberOfEmployees(event.target.value)} />
-      <InputWithLabelComponent inputText={location} inputName='location' inputType='text' labelText='Location' inputAction={(event) => setLocation(event.target.value)} />
-      <br />
-      <ButtonSubmit buttonText='Save' />
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-    </form>
+    <AppContainer 
+      title='Edit Tenant'
+      content={renderContent} />
   );
 };
 

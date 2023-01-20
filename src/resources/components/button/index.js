@@ -13,3 +13,20 @@ export default function ButtonSubmit(props) {
         </div>
     )
 }
+
+
+
+export function ButtonAction(props) {
+    const buttonStyle = {color : 'blue', fontSize:'14px', padding: '5px', borderRadius: '10px', borderSize: '0px', width: '100px'}
+
+    return (
+        <div>
+            <button 
+                type="button"
+                onClick={props.action}
+                style={buttonStyle}
+                >{props.buttonText}
+            </button>
+        </div>
+    )
+}

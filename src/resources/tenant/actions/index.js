@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { firestore } from '../../config/firestore/store';
-import { useFirestore, collection, getDocs } from 'react-redux-firebase';
+import { collection, getDocs } from 'react-redux-firebase';
 
 export default function fetchTenantId(props) {
     
